@@ -6,8 +6,5 @@ ActiveRecord::Schema.define do
   end
 
   create_table :answers do |table|
-    table.column :question_id, :integer
-    table.column :iscorrect, :integer
-    table.column :text, :string
   end
 end
