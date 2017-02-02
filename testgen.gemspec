@@ -1,13 +1,13 @@
 Gem::Specification.new do |s|
-  s.name        = 'testgen'
+  s.name        = 'testsgen'
   s.version     = '0.0.0'
   s.date        = '2017-01-26'
-  s.summary     = "Test generator"
+  s.summary     = "Tests generator"
   s.description = "-"
   s.authors     = ["Hristina Todorova"]
   s.email       = 'hrist_todorova@abv.bg'
-  s.files       = ["lib/testgen.rb"]
+  s.files       = ["lib/testsgen.rb"]
   s.homepage    =
-    'http://rubygems.org/gems/mytestgen'
+    'http://rubygems.org/gems/testsgen'
   s.license       = 'MIT'
 end
