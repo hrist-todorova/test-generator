@@ -1,2 +1,3 @@
-# test-generator
-Ruby project
+# Генератор на тестове
+
+##Документация
