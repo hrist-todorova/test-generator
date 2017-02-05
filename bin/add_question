@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/testsgen.rb'
+
+add_question(ARGV[0], ARGV[1], ARGV[2], ARGV[3...ARGV.size])

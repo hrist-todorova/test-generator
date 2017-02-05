@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/testsgen.rb'
+
+delete_question_by_text(ARGV[0])
