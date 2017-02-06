@@ -1,17 +1,19 @@
-def add_question(question, category, description, answer_array, options_hash = {})
+def add_question(question, category, description, answers, options = {})
   question = Question.create(
-    :text => "#{question}",
-    :category => "#{category}",
-    :description => "#{description}",
-    :picture => "#{options_hash[:picture]}",
-    :style => "#{options_hash[:style]}"
-    )
-  answer_array.each_slice(2).to_a.each { |x| add_answer(question, x[0], x[1].to_i, options_hash[:answers_style]) }
-  question
+    text: question,
+    category: category,
+    description: description,
+    picture: options[:picture],
+    style: options[:style]
+  )
+
+  answers.each_slice(2).to_a.each do |x|
+    add_answer(question, x[0], x[1].to_i, options[:answers_style])
+  end
 end
 
 def add_answer(question, text, correctness, style)
-  question.answers.create(:text => text, :iscorrect => correctness, :style => style)
+  question.answers.create(text: text, iscorrect: correctness, style: style)
 end
 
 # to-do's
@@ -43,21 +45,23 @@ def clear_content
   Question.delete_all
 end
 
-def generate_test(questions_number, categories_hash, variants, name, options = {})
-  return if questions_number != categories_hash.each_value.to_a.inject(0, :+)
+def generate_test(questions_number, categories, variants, name, options = {})
+  return if questions_number != categories.each_value.to_a.inject(0, :+)
 
   variants.times do |i|
-    final_test = []
-    categories_hash.each do |category, number|
-      all = find_all_by_category(category).to_a
-      all.shuffle!
-      final_test << all.take(number)
-    end
+    test = make_variant(categories)
     variant = i + 1
-    final_test.shuffle!
-    make_pdf_file(variant.to_s, final_test, "#{name}-#{variant}.pdf", options)
-    make_keys_pdf(variant.to_s, final_test, "#{name}-#{variant}-keys.pdf")
+    test.shuffle!
+    make_pdf_file(variant.to_s, test, "#{name}-#{variant}.pdf", options)
+    make_keys_pdf(variant.to_s, test, "#{name}-#{variant}-keys.pdf")
   end
 end
 
-
+def make_variant(categories)
+  final_test = []
+  categories.each do |category, number|
+    all = find_all_by_category(category).to_a
+    all.shuffle!
+    final_test << all.take(number)
+  end
+end
