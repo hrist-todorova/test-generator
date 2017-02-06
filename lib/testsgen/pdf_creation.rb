@@ -1,7 +1,13 @@
-def make_pdf_file(test, filename, options_hash)
+def make_pdf_file(variant, test, filename, options_hash)
   pdf = Pdf.new
+  pdf.add_header(options_hash[:subject]) if(options_hash[:subject])
+  pdf.add_subheader("Variant: " + variant)
+  pdf.add_date(options_hash[:date]) if(options_hash[:date])
+  options_hash[:fn] == "yes" ? pdf.add_name_and_fn : pdf.add_name
+
   test.flatten.each do |question|
     pdf.add_question(question.text)
+    pdf.add_picture(question.picture)
     answer_char = 'a'
     question.answers.to_a.each do |answer|
       pdf.add_answer("#{answer_char}) " + answer.text)
@@ -11,8 +17,9 @@ def make_pdf_file(test, filename, options_hash)
   pdf.create_file(filename)
 end
 
-def make_keys_pdf(test, filename)
+def make_keys_pdf(variant, test, filename)
   pdf = Pdf.new
+  pdf.add_subheader("Variant: " + variant)
   test.flatten.each_with_index do |question, n|
     all_answers = "#{n}. "
       answer_char = 'a'
