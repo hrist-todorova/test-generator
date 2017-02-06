@@ -37,19 +37,18 @@ def clear_content
 end
 
 def generate_test(questions_number, categories_hash, variants, name, options)
-  #to chech if in categories we want more than we need
+  return if questions_number != categories_hash.each_value.to_a.inject(0, :+)
 
-
-  variants.times do
+  variants.times do |i|
     final_test = []
     categories_hash.each do |category, number|
-  #test this !!!!!
       all = find_all_by_category(category).to_a
       all.shuffle!
       final_test << all.take(number)
     end
-    make_pdf_file(final_test, "#{name}.pdf", options)
-    make_keys_pdf(final_test, "#{name}-keys.pdf")
+    variant = i + 1
+    make_pdf_file(final_test, "#{name}-#{variant}.pdf", options)
+    make_keys_pdf(final_test, "#{name}-#{variant}-keys.pdf")
   end
 end
 
