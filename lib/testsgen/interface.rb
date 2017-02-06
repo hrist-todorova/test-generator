@@ -1,16 +1,23 @@
-def add_question(question, category, description, answer_array = [])
+def add_question(question, category, description, answer_array, options_hash = {})
   question = Question.create(
     :text => "#{question}",
     :category => "#{category}",
     :description => "#{description}",
+    :picture => "#{options_hash[:picture]}",
+    :style => "#{options_hash[:style]}"
     )
-  answer_array.each_slice(2).to_a.each { |x| add_answer(question, x[0], x[1].to_i) }
+  answer_array.each_slice(2).to_a.each { |x| add_answer(question, x[0], x[1].to_i, options_hash[:answers_style]) }
   question
 end
 
-def add_answer(question, text, correctness)
-  question.answers.create(:text => text, :iscorrect => correctness)
+def add_answer(question, text, correctness, style)
+  question.answers.create(:text => text, :iscorrect => correctness, :style => style)
 end
+
+# to-do's
+# add_answer_to_question
+# delete_all_by_category
+# delete_answer
 
 def delete_question_by_text(question)
   question = Question.find_by_text(question)
@@ -36,7 +43,7 @@ def clear_content
   Question.delete_all
 end
 
-def generate_test(questions_number, categories_hash, variants, name, options)
+def generate_test(questions_number, categories_hash, variants, name, options = {})
   return if questions_number != categories_hash.each_value.to_a.inject(0, :+)
 
   variants.times do |i|
@@ -47,8 +54,9 @@ def generate_test(questions_number, categories_hash, variants, name, options)
       final_test << all.take(number)
     end
     variant = i + 1
-    make_pdf_file(final_test, "#{name}-#{variant}.pdf", options)
-    make_keys_pdf(final_test, "#{name}-#{variant}-keys.pdf")
+    final_test.shuffle!
+    make_pdf_file(variant.to_s, final_test, "#{name}-#{variant}.pdf", options)
+    make_keys_pdf(variant.to_s, final_test, "#{name}-#{variant}-keys.pdf")
   end
 end
 
