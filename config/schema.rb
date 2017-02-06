@@ -3,11 +3,14 @@ ActiveRecord::Schema.define do
     table.column :category, :string
     table.column :description, :string
     table.column :text, :string
+    table.column :picture, :string
+    table.column :style, :string
   end
 
   create_table :answers do |table|
     table.column :question_id, :integer
     table.column :iscorrect, :integer
     table.column :text, :string
+    table.column :style, :string
   end
 end
