@@ -2,4 +2,4 @@
 
 require_relative '../lib/testsgen.rb'
 
-find_all_by_description(ARGV[0]).to_a.each { |x| puts x.text}
+find_all_by_description(ARGV[0]).to_a.each { |x| puts x.text }
