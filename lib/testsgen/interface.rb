@@ -16,10 +16,6 @@ def add_answer(question, text, correctness)
   question.answers.create(text: text, iscorrect: correctness)
 end
 
-def get_question_id(text)
-  Question.find_by_text(text).id
-end
-
 def delete_question_by_text(question)
   question = Question.find_by_text(question)
   Answer.where(question_id: question.id).delete_all
@@ -45,6 +41,11 @@ def clear_content
 end
 
 def generate_test(questions_number, categories, variants, name, options = {})
+  if categories == {}
+    no_categories_test(questions_number, variants, name, options)
+    return
+  end
+
   return if questions_number != categories.each_value.to_a.inject(0, :+)
 
   variants.times do |i|
@@ -53,6 +54,17 @@ def generate_test(questions_number, categories, variants, name, options = {})
     test.shuffle!
     make_pdf_file(variant.to_s, test, "#{name}-#{variant}.pdf", options)
     make_keys_pdf(variant.to_s, test, "#{name}-#{variant}-keys.pdf")
+  end
+end
+
+def no_categories_test(questions_number, variants, name, options)
+  test = Question.all.to_a
+  variants.times do |i|
+    test.shuffle!
+    variant = i + 1
+    f_test = test.take(questions_number)
+    make_pdf_file(variant.to_s, f_test, "#{name}-#{variant}.pdf", options)
+    make_keys_pdf(variant.to_s, f_test, "#{name}-#{variant}-keys.pdf")
   end
 end
 
