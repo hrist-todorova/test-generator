@@ -48,4 +48,3 @@ class Pdf
     @pdf.text(answer, indent_paragraphs: 10, style: style)
   end
 end
-
