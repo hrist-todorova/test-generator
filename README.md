@@ -9,7 +9,6 @@
 * въпросите му в следния вид : ["отговор1", 0, "отговор2", 1] - след всеки отговор задаваме дали той е верен или не съответно с 1 или 0
 * възможно е като последен параметър за зададем хеш с опцията за картинка : {picture: "path"}
 
-
 `delete_question_by_text(question)` - изтриваме въпрос като подадем като параметър текстът му
 
 `change_question(old_question, new_question)` - заменяме текстът на въпрос с друг
@@ -40,3 +39,6 @@
 
 В папката spec:
 `rspec interface_tests.rb -r ../lib/testsgen.rb -c -f doc`
+
+!!! add_question не приема хеш с опции
+!!! generate_test има вида generate_test(questions_number, variants, name)
