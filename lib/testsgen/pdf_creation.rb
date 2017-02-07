@@ -6,17 +6,17 @@ def make_pdf_file(variant, test, filename, options_hash)
   options_hash[:fn] == 'yes' ? pdf.add_name_and_fn : pdf.add_name
 
   test.flatten.each do |question|
-    print_questions_and_answers(pdf, question)
+    print_questions_and_answers(pdf, question, options_hash)
   end
   pdf.create_file(filename)
 end
 
-def print_questions_and_answers(pdf, question)
-  pdf.add_question(question.text, question.style)
+def print_questions_and_answers(pdf, question, options)
+  pdf.add_question(question.text, options[:question_style])
   pdf.add_picture(question.picture)
   answer_char = 'a'
   question.answers.to_a.each do |answer|
-    pdf.add_answer("#{answer_char}) " + answer.text, answer.style)
+    pdf.add_answer("#{answer_char}) " + answer.text, options[:answer_style])
     answer_char = answer_char.succ
   end
 end
