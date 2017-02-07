@@ -12,23 +12,28 @@ class Pdf
   end
 
   def add_header(header)
-    @pdf.text(header, align: :center)
+    @pdf.text(header, align: :center, size: 17)
   end
 
   def add_subheader(subheader)
-    @pdf.text(subheader, align: :center, style: :italic)
+    @pdf.text(subheader, align: :center, style: :italic, size: 13)
   end
 
   def add_date(date)
-    @pdf.text(date, align: :center, style: :italic)
+    @pdf.text(date, align: :center, style: :italic, size: 10)
   end
 
   def add_name
-    @pdf.text('Name: ' + '.' * 95)
+    @pdf.text "\n"
+    @pdf.text('Name: ' + '.' * 95, align: :center)
+    @pdf.text "\n"
   end
 
   def add_name_and_fn
-    @pdf.text('Name: ' + '.' * 95 + ' ' * 6 + 'Faculty number: ' + '.' * 20)
+    @pdf.text "\n"
+    @pdf.text('Name: ' + '.' * 95 + ' ' * 6 + 'Faculty number: ' + '.' * 8,
+      align: :center)
+    @pdf.text "\n"
   end
 
   def add_text(text)
