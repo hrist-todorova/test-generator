@@ -16,8 +16,9 @@ def add_answer(question, text, correctness)
   question.answers.create(text: text, iscorrect: correctness)
 end
 
-# to-do's
-# delete_answer
+def get_question_id(text)
+  Question.find_by_text(text).id
+end
 
 def delete_question_by_text(question)
   question = Question.find_by_text(question)
