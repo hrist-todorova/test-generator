@@ -3,22 +3,20 @@ def add_question(question, category, description, answers, options = {})
     text: question,
     category: category,
     description: description,
-    picture: options[:picture],
-    style: options[:style]
+    picture: options[:picture]
   )
 
   answers.each_slice(2).to_a.each do |x|
-    add_answer(question, x[0], x[1].to_i, options[:answers_style])
+    add_answer(question, x[0], x[1].to_i)
   end
+  question.id
 end
 
-def add_answer(question, text, correctness, style)
-  question.answers.create(text: text, iscorrect: correctness, style: style)
+def add_answer(question, text, correctness)
+  question.answers.create(text: text, iscorrect: correctness)
 end
 
 # to-do's
-# add_answer_to_question
-# delete_all_by_category
 # delete_answer
 
 def delete_question_by_text(question)

@@ -17,3 +17,8 @@
 ##Стартиране на executable под Windows
 
 `ruby ../bin/your_command аргументи`
+
+##Стартиране на тест
+
+В папката spec:
+`rspec interface_tests.rb -r ../lib/testsgen.rb -c -f doc`
