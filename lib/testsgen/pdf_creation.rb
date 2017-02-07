@@ -13,7 +13,7 @@ end
 
 def print_questions_and_answers(pdf, question, options)
   pdf.add_question(question.text, options[:question_style])
-  pdf.add_picture(question.picture)
+  pdf.add_picture(question.picture) if question.picture != nil
   answer_char = 'a'
   question.answers.to_a.each do |answer|
     pdf.add_answer("#{answer_char}) " + answer.text, options[:answer_style])
@@ -25,7 +25,7 @@ def make_keys_pdf(variant, test, filename)
   pdf = Pdf.new
   pdf.add_subheader('Variant: ' + variant)
   test.flatten.each_with_index do |question, n|
-    print_correct_answers(question, n)
+    all_answers = print_correct_answers(question, n + 1)
     pdf.add_text(all_answers[0...-2])
   end
   pdf.create_file(filename)
@@ -40,4 +40,5 @@ def print_correct_answers(question, n)
     end
     answer_char = answer_char.succ
   end
+  all_answers
 end
