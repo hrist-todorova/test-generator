@@ -33,7 +33,7 @@
 
 ##Стартиране на executable под Windows
 
-`cd lib`
+`cd lib` <br />
 `ruby ../bin/your_command аргументи`
 
 ##Стартиране на тест
@@ -41,5 +41,5 @@
 В папката spec:
 `rspec interface_tests.rb -r ../lib/testsgen.rb -c -f doc`
 
-!!! add_question не приема хеш с опции
+!!! add_question не приема хеш с опции  <br />
 !!! generate_test има вида generate_test(questions_number, variants, name)
