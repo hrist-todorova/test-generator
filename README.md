@@ -33,6 +33,7 @@
 
 ##Стартиране на executable под Windows
 
+`cd lib`
 `ruby ../bin/your_command аргументи`
 
 ##Стартиране на тест
